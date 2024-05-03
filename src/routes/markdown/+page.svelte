@@ -1,10 +1,29 @@
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>Markdown</title>
+	<meta name="description" content="Markdown this app" />
 </svelte:head>
 
+<script>
+	import { bookData } from '../bookData';		
+	import Search from '../Search.svelte';
+
+	// For Search Input
+	let searchTerm = "";
+	// resets language menu if search input is used
+	$: if (searchTerm) selectedLang = ""; 
+	
+	const searchBooks = () => {	
+		return filteredBooks = bookData.filter(book => {
+			let bookTitle = book.title.toLowerCase();
+			return bookTitle.includes(searchTerm.toLowerCase())
+		});
+	}
+</script>
+
 <div class="text-column">
-	<h1>About this app</h1>
+	<h1>Markdown this app</h1>
+
+	<Search bind:searchTerm on:input={searchBooks} />
 
 	<p>
 		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
